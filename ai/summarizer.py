@@ -6,8 +6,6 @@ class LegalDraftGenerator:
 
     def __init__(self, config):
         self.client = AIClient(config["api_key"])
-        self.model = config["model"]
-        self.max_tokens = config["max_tokens"]
         self.temperature = config.get("temperature", 0.2)
 
     def generate(
@@ -27,9 +25,7 @@ class LegalDraftGenerator:
         )
 
         return self.client.chat(
-            model=self.model,
             messages=messages,
-            max_tokens=self.max_tokens,
             temperature=self.temperature,
         )
 
