@@ -34,7 +34,13 @@ def _build_form_state(form_data=None):
 
 def create_app():
     config = get_config()
+
+    # 🔒 enforce AI consistency at app level
+    config["model"] = "gpt-4o-mini"
+    config["max_tokens"] = 10000
+
     web_app = Flask(__name__, template_folder="templates", static_folder="static")
+
     web_app.config["SECRET_KEY"] = config["secret_key"]
     web_app.config["MAX_CONTENT_LENGTH"] = config["max_upload_mb"] * 1024 * 1024
     web_app.config["LRW_CONFIG"] = config
@@ -60,6 +66,7 @@ def create_app():
     @web_app.errorhandler(413)
     def payload_too_large(_error):
         form_state = _build_form_state(request.form)
+
         return render_home(
             form_state=form_state,
             errors=[
@@ -71,7 +78,10 @@ def create_app():
 
     @web_app.route("/", methods=["GET", "POST"])
     def index():
-        form_state = _build_form_state(request.form if request.method == "POST" else None)
+        form_state = _build_form_state(
+            request.form if request.method == "POST" else None
+        )
+
         result = None
         errors = []
 
@@ -102,8 +112,10 @@ def create_app():
                     "audience_name": get_audience(form_state["audience_id"])["label"],
                     "draft_title": form_state["draft_title"] or "Untitled draft",
                 }
+
             except ValueError as error:
                 errors.append(str(error))
+
             except Exception:
                 web_app.logger.exception("LRW-GPT draft generation failed")
                 errors.append(
