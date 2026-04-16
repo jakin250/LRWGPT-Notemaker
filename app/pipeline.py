@@ -44,10 +44,9 @@ def get_max_document_uploads():
 def build_material_bundle(uploaded_files, pasted_text, max_input_chars):
     sections = []
     source_names = []
+
     valid_uploads = [
-        uploaded_file
-        for uploaded_file in uploaded_files
-        if uploaded_file and uploaded_file.filename
+        f for f in uploaded_files if f and f.filename
     ]
 
     if len(valid_uploads) > MAX_DOCUMENT_UPLOADS:
@@ -81,6 +80,7 @@ def build_material_bundle(uploaded_files, pasted_text, max_input_chars):
             raw_text = file_bytes.decode("utf-8", errors="ignore")
 
         prepared_text = _prepare_text_for_ai(raw_text)
+
         if not prepared_text:
             raise ValueError(f"{safe_name} did not contain readable text.")
 
@@ -97,13 +97,13 @@ def build_material_bundle(uploaded_files, pasted_text, max_input_chars):
             "Upload at least one PDF, DOCX, or TXT file, or paste source material before generating a draft."
         )
 
-    compiled_text = "\n\n" + ("\n\n---\n\n".join(sections))
+    compiled_text = "\n\n---\n\n".join(sections)
     char_count = len(compiled_text)
 
     if char_count > max_input_chars:
         raise ValueError(
             "The combined materials are too large for one draft. "
-            "Upload fewer documents or split the text into a smaller bundle and try again."
+            "Upload fewer documents or split the text into smaller parts."
         )
 
     return MaterialBundle(
@@ -122,7 +122,9 @@ def generate_legal_draft(
     custom_instructions="",
     draft_title="",
 ):
+    # 🔒 IMPORTANT: generator no longer controls model or tokens
     generator = LegalDraftGenerator(config)
+
     return generator.generate(
         text=material_bundle.compiled_text,
         prompt_id=prompt_id,
@@ -135,6 +137,7 @@ def generate_legal_draft(
 def process_pdf(pdf_path, config):
     raw_text = extract_text(pdf_path)
     prepared_text = _prepare_text_for_ai(raw_text)
+
     material_bundle = MaterialBundle(
         compiled_text=f"Source: {os.path.basename(pdf_path)}\n\n{prepared_text}",
         source_names=[os.path.basename(pdf_path)],
@@ -151,6 +154,7 @@ def process_pdf(pdf_path, config):
 
     filename = os.path.basename(pdf_path).replace(".pdf", "_draft.txt")
     output_path = os.path.join(config["output_folder"], filename)
+
     save_text(output_path, draft)
 
     return output_path
