@@ -14,6 +14,7 @@ PROMPT_LIBRARY = [
             Summarize the material paragraph by paragraph in order.
             Keep each paragraph summary concise, practical, and easy to scan.
             Preserve numbering where the source uses paragraph numbers.
+            Cite paragraphs from reported court cases using the paragraph number in square brackets at the end of the sentence (e.g. [10]).
             If the source is lengthy, group the summaries into manageable sections while preserving sequence.
             """
         ).strip(),
@@ -33,6 +34,7 @@ PROMPT_LIBRARY = [
             Include only material facts relevant to the legal dispute.
             Identify the court's legal questions, applicable authorities, reasoning, and outcome.
             Maintain paragraph references in square brackets where the source provides them.
+            Cite paragraphs from reported court cases using the paragraph number in square brackets at the end of the sentence (e.g. [10]).
             Use formal legal language and OSCOLA-style citations when the material supports them.
             """
         ).strip(),
@@ -48,6 +50,7 @@ PROMPT_LIBRARY = [
         "instructions": dedent(
             """
             Draft a legal opinion based only on the supplied material.
+            Cite paragraphs from reported court cases using the paragraph number in square brackets at the end of the sentence (e.g. [10]).
             Do not rely on unrelated authorities or invented facts.
             Identify the legal questions raised, analyse the strengths and weaknesses, and explain the likely outcome.
             Use a calm, professional tone and make any uncertainty explicit.
@@ -68,6 +71,7 @@ PROMPT_LIBRARY = [
             Present the authorities in a clean list or table.
             Use accurate case names and OSCOLA-style citation formatting where the source supports it.
             If citation details are incomplete, preserve only what can be verified from the material.
+            Cite paragraphs from reported court cases using the paragraph number in square brackets at the end of the sentence (e.g. [10]).
             """
         ).strip(),
         "ui_guidance": "Best for building authorities lists and checking which cases drive the reasoning.",
@@ -84,6 +88,7 @@ PROMPT_LIBRARY = [
             Identify all statutes, legislative provisions, regulations, and constitutional sections cited in the material.
             Include section numbers, full titles where available, and a short note on how each provision is used.
             Keep the output factual and grounded in the text.
+            Cite paragraphs from reported court cases using the paragraph number in square brackets at the end of the sentence (e.g. [10]).
             """
         ).strip(),
         "ui_guidance": "Useful when you need a fast statutory map of the source bundle.",
@@ -101,6 +106,7 @@ PROMPT_LIBRARY = [
             Focus on the sequence of events, filings, hearings, rulings, and procedural posture.
             Use dates when they appear in the material and preserve uncertainty when dates are missing.
             Keep the chronology crisp and courtroom-ready.
+            Cite paragraphs from reported court cases using the paragraph number in square brackets at the end of the sentence (e.g. [10]).
             """
         ).strip(),
         "ui_guidance": "Helpful for litigation files, case handovers, and oral prep.",
@@ -117,6 +123,7 @@ PROMPT_LIBRARY = [
             Write an analytical essay on the authorities used in the supplied material.
             Explain how the cited cases, legislation, and legal commentary contribute to the decision or argument.
             Use formal legal writing, structured paragraphs, and OSCOLA-style citation where possible.
+            Cite paragraphs from reported court cases using the paragraph number in square brackets at the end of the sentence (e.g. [10]).
             """
         ).strip(),
         "ui_guidance": "Best for coursework, research memos, and deeper doctrinal analysis.",
@@ -133,6 +140,7 @@ PROMPT_LIBRARY = [
             Identify the paragraphs that contain the court's binding principles and core reasoning.
             Exclude procedural recaps and references to other courts unless they are adopted as part of the court's own reasoning.
             Explain each principle in clear legal language and preserve paragraph references where available.
+            Cite paragraphs from reported court cases using the paragraph number in square brackets at the end of the sentence (e.g. [10]).
             """
         ).strip(),
         "ui_guidance": "Useful for ratio identification, precedent review, and revision notes.",
@@ -149,6 +157,7 @@ PROMPT_LIBRARY = [
             Draft a structured argument outline based only on the supplied material.
             Organise the output into main issues, arguments, supporting authorities, likely counterarguments, and proposed relief or conclusion where the material supports it.
             Keep the structure practical for submissions, advice notes, or oral preparation.
+            Cite paragraphs from reported court cases using the paragraph number in square brackets at the end of the sentence (e.g. [10]).
             """
         ).strip(),
         "ui_guidance": "Best for hearing prep, issue framing, and turning source bundles into a draft position.",
@@ -168,6 +177,7 @@ PROMPT_LIBRARY = [
             Preserve page numbers, chapter numbers, learning units, and diagram references when available.
             Exclude learning activities, self-assessment sections, feedback blocks, long examples, and unnecessary explanation.
             Ignore isolated footnote-style numbers that do not form part of a case name, statute, or numbered object.
+            Cite paragraphs from reported court cases using the paragraph number in square brackets at the end of the sentence (e.g. [10]).
             """
         ).strip(),
         "ui_guidance": "Ideal for law students, revision packs, and lecture-note reconstruction.",
