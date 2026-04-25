@@ -22,7 +22,7 @@ def get_config():
 
         "temperature": float(os.getenv("OPENAI_TEMPERATURE", "0.2")),
 
-        "max_input_chars": int(os.getenv("LRW_MAX_INPUT_CHARS", "120000")),
+        "max_input_chars": int(os.getenv("LRW_MAX_INPUT_CHARS", "150000")),
         "max_upload_mb": int(os.getenv("MAX_UPLOAD_MB", "20")),
 
         "secret_key": os.getenv("FLASK_SECRET_KEY", "lrw-gpt-local-dev"),
