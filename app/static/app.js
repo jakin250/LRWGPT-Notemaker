@@ -11,6 +11,7 @@ const copyResultButton = document.getElementById("copyResultButton");
 const draftResult = document.getElementById("draftResult");
 const maxFiles = fileInput ? Number(fileInput.dataset.maxFiles || "0") : 0;
 const themeToggle = document.getElementById("themeToggle");
+const themeToggleText = themeToggle?.querySelector(".theme-toggle-text");
 
 function applyTheme(theme) {
     document.body.dataset.theme = theme;
@@ -18,8 +19,12 @@ function applyTheme(theme) {
 
     if (themeToggle) {
         const isDark = theme === "dark";
-        themeToggle.textContent = isDark ? "Light mode" : "Dark mode";
+        themeToggle.setAttribute("aria-checked", String(isDark));
         themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+
+        if (themeToggleText) {
+            themeToggleText.textContent = isDark ? "Light" : "Dark";
+        }
     }
 }
 
@@ -38,6 +43,17 @@ function initializeTranslateWidget() {
         return;
     }
 
+    const markTranslateReady = () => {
+        const combo = translateRoot.querySelector(".goog-te-combo");
+
+        if (!combo) {
+            window.setTimeout(markTranslateReady, 120);
+            return;
+        }
+
+        translateRoot.classList.add("is-ready");
+    };
+
     window.googleTranslateElementInit = () => {
         if (!window.google?.translate?.TranslateElement) {
             return;
@@ -48,6 +64,8 @@ function initializeTranslateWidget() {
             includedLanguages: "af,ar,de,en,es,fr,hi,it,ja,ko,nl,pt,ru,sw,tr,ur,vi,zh-CN,zh-TW,ig,yo,xh,ss,nr,tn,st,nso,ts,ve,zu",
             autoDisplay: false,
         }, "google_translate_element");
+
+        markTranslateReady();
     };
 
     const script = document.createElement("script");

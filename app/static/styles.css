@@ -211,36 +211,38 @@ a {
 }
 
 .translate-widget-shell {
-    display: inline-flex;
-    align-items: center;
-    gap: 0;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: #ffffff;
+    box-shadow: 0 8px 18px rgba(17, 17, 17, 0.08);
+    overflow: hidden;
 }
 
-.utility-label {
+.translate-widget-shell::before {
+    content: "文";
     position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    pointer-events: none;
 }
 
 #google_translate_element {
-    min-width: min(100%, 220px);
+    width: 100%;
+    height: 100%;
 }
 
 #google_translate_element .goog-te-gadget {
-    color: var(--ink-soft) !important;
-    font-family: inherit !important;
-    font-size: 0.92rem !important;
-    line-height: 1 !important;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-size: 0 !important;
 }
 
 #google_translate_element .goog-logo-link,
@@ -249,28 +251,69 @@ a {
 }
 
 #google_translate_element .goog-te-combo {
-    width: 220px;
-    max-width: 100%;
-    min-height: 2.75rem;
-    padding: 0.7rem 2.4rem 0.7rem 0.95rem;
-    border: 1px solid var(--line) !important;
-    border-radius: 999px;
-    background: var(--surface-strong);
-    color: var(--ink);
-    font: inherit;
-    font-weight: 700;
-    box-shadow: none;
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
-    background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px);
-    background-size: 6px 6px, 6px 6px;
-    background-repeat: no-repeat;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    border: 0 !important;
 }
 
 #google_translate_element .goog-te-combo:focus {
-    outline: 3px solid rgba(13, 107, 82, 0.12);
-    border-color: rgba(13, 107, 82, 0.5) !important;
+    opacity: 1;
+    background: #ffffff;
+    color: var(--ink);
+    font-size: 0.9rem;
+    border-radius: 14px;
+    padding: 10px;
+    border: 1px solid var(--line) !important;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 6px 12px 6px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #ffffff;
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.86rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.theme-toggle-track {
+    position: relative;
+    width: 40px;
+    height: 24px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: #ececeb;
+}
+
+.theme-toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #111111;
+    transition: transform 160ms ease;
+}
+
+.theme-toggle[aria-checked="true"] .theme-toggle-thumb {
+    transform: translateX(16px);
+    background: #ffffff;
+}
+
+.theme-toggle[aria-checked="true"] .theme-toggle-track {
+    background: #111111;
+    border-color: #111111;
 }
 
 .site-nav a {
@@ -643,12 +686,21 @@ body[data-theme="dark"] input[type="text"] {
 
 body[data-theme="dark"] .primary-button,
 body[data-theme="dark"] .secondary-button,
-body[data-theme="dark"] .theme-toggle,
-body[data-theme="dark"] #google_translate_element .goog-te-combo {
+body[data-theme="dark"] .theme-toggle {
     background: #ffffff !important;
     color: #000000 !important;
     border: 1px solid #ffffff !important;
     box-shadow: none;
+}
+
+
+body[data-theme="dark"] .translate-widget-shell {
+    background: #ffffff;
+    border-color: #ffffff;
+}
+
+body[data-theme="dark"] .translate-widget-shell::before {
+    color: #000000;
 }
 
 body[data-theme="dark"] .primary-button:hover,
